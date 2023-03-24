@@ -1,18 +1,20 @@
-package javaprogramming.week4;
+package javaprogramming.week4.exam;
 
 public class Exam07 {
     public static void main(String[] args){
-        /*
-        for(int i =1; i<=10; i++){
-            if(i==5) continue;{//break는 4까지만 continue는 5빼고 출력 다시 반복문으로 돌아간다
-                System.out.print(i + " ");
-            }
-        }*/
-        int i =0;
-        while (i<10){
-            i++;
-            if(i==5)continue;{
-            System.out.print(i+ " ");
+        //4단 6단 제외하고 출력 (단 단보다 곱해지는 값이 커지면 다음 단으로)
+        //break 와 continue 활용
+        for(int i = 2; i<=9; i++){
+            if(i == 4 || i == 6) continue;
+            {
+                for (int k = 1; k <= 9; k++) {
+                    if (k > i)
+                        break;
+                    {
+                        System.out.println(i + " * " + k + " = " + (i * k));
+                    }
+                }
+                System.out.println();
             }
         }
     }

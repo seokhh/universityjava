@@ -1,4 +1,4 @@
-package javaprogramming.week4;
+package javaprogramming.week4.exam;
 
 public class Exam03 {
     public static void main(String[] args){

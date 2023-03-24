@@ -1,4 +1,4 @@
-package javaprogramming.week4;
+package javaprogramming.week4.exam;
 
 import java.util.Scanner;
 
