@@ -1,15 +1,16 @@
-package javaprogramming.week3;
+package javaprogramming.week4;
+
 import java.util.Scanner;
+
 public class Exam02 {
-    public static void main(String[] args){
+    public static void main(String[] arg){
         Scanner sc = new Scanner(System.in);
-
-        System.out.print("사과의 개수를 입력하세요: ");
-        int apple = sc.nextInt();
-
-        int box = apple/10;
-        int result = apple%10;
-
-        System.out.print(box + "박스가 필요하고 사과는 " + result + "개가 남습니다.");
+        System.out.print("구구단 단을 입력하세여요:");
+        int a = sc.nextInt();
+        int i =1;
+        while(i<=9){
+            System.out.println(a + "*" + i+" = " + (a*i));
+            i++;
+        }
     }
 }
