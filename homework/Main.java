@@ -1,52 +1,57 @@
-package javaprogramming.week9.homework;
+package javaprogramming2.week2.homework;
 
-class Friend{
-    private String name, phoneNumber, address;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-    public Friend(String name, String phoneNumber, String address){
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-    }
-    public void showData(){
-        System.out.print(name + ":" + phoneNumber + "," + address);
-    }
-}
-class HighSchoolFriend extends Friend{
-    private String job;
-
-    public HighSchoolFriend(String name, String phoneNumber, String address, String job) {
-        super(name, phoneNumber, address);
-        this.job = job;
-    }
-
-    public void showData(){
-        super.showData();
-        System.out.println(" (직업=" + job + ")");
-    }
-}
-class UniversityFriend extends Friend{
-    private String major;
-
-    public UniversityFriend(String name, String phoneNumber, String address, String major) {
-        super(name, phoneNumber, address);
-        this.major = major;
-    }
-
-    public void showData(){
-        super.showData();
-        System.out.println(" (전공=" + major + ")");
-    }
-}
 public class Main {
-    public static void main(String[] args){
-        HighSchoolFriend h1 = new HighSchoolFriend("홍길동", "010-1111-1212","부천","공무원");
-        UniversityFriend u1 = new UniversityFriend("김철수", "010-1111-1111","서울","컴공");
-        UniversityFriend u2 = new UniversityFriend("이영희", "010-2222-1111", "인천", "미콘");
+    Scanner scan = new Scanner(System.in);
+    ArrayList<Friend> studentList = new ArrayList<>();
 
-        Friend[] friends = {h1, u1, u2};
-        for(Friend list : friends){
-            list.showData();
+    void run() {
+        readAll();
+        printAll();
+        search();
+    }
+
+    void readAll() {
+        Friend st = null;
+        String name;
+        while (true) {
+            name = scan.next();
+            if (name.equals("end"))
+                break;
+            st = new Friend();
+            st.read(scan, name);
+            studentList.add(st);
         }
+    }
+
+    void printAll() {
+        for (Friend fri : studentList) {
+            fri.print();
+        }
+    }
+
+    void search() {
+        String line = null;
+        String[] kwdArr;
+        scan.nextLine();
+        while (true) {
+            System.out.print("키워드(통합검색, -면 제외):");
+            line = scan.nextLine();
+            if (line.equals("end"))
+                break;
+            kwdArr = line.trim().split(" ");
+            for (Friend fri : studentList) {
+                if (fri.matches(kwdArr))
+                    fri.print();
+            }
+        }
+    }
+
+    public static void main(String args[]) {
+        System.out.println("이름, 번호, 주소, 직업 순으로 적어주세요");
+        Main my = new Main();
+        my.run();
     }
 }
