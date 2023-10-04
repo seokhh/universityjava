@@ -1,4 +1,4 @@
-package javaprogramming2.week3.homework;
+package javaprogramming2.week4.homework;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,7 +22,12 @@ public class Department {
             code = scan.next();
             if (code.contentEquals("end"))
                 break;
-            lec = new Lecture(code);
+            int n = scan.nextInt();
+            switch (n) {
+                case 1: lec = new Lecture(code);break;
+                case 2: lec = new ELecture(code); break;
+                default: break;
+            }
             lec.read(scan);
             lectureList.add(lec);
         }
@@ -53,7 +58,7 @@ public class Department {
         }
     }
 
-    public Lecture findLecture(String code) {
+    Lecture findLecture(String code) {
         for(Lecture lec: lectureList){
             if(lec.matches(code))
                 return lec;
@@ -80,16 +85,26 @@ public class Department {
                 if (n == 1) {
                     System.out.print("검색할 과목을 입력해주세요: ");
                     String lectureCode = scan.next();
-                    Lecture foundLecture = findLecture(lectureCode);
-                    if (foundLecture != null) {
-                        System.out.println(foundLecture.name +" 수강생:");
-                        for (Student st : studentList) {
-                            if (st.registeredList.contains(foundLecture)) {
-                                System.out.print(st.name + " ");
+                    boolean found = false;
+                    for (Lecture lec : lectureList) {
+                        if (lec.matches(lectureCode)) {
+                            System.out.println(lec.name + " 수강생:");
+                            boolean hasStudents = false;
+                            for (Student st : studentList) {
+                                if (st.registeredList.contains(lec)) {
+                                    System.out.print(st.name + " ");
+                                    hasStudents = true;
+                                }
                             }
+                            if (!hasStudents) {
+                                System.out.printf("수강생이 없음");
+                            }
+                            System.out.println();
+                            System.out.println();
+                            found = true;
                         }
-                        System.out.println();
-                    } else {
+                    }
+                    if (!found) {
                         System.out.println("과목을 찾을 수 없습니다.");
                     }
                 } else if (n == 2) {

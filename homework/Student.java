@@ -1,4 +1,4 @@
-package javaprogramming2.week3.homework;
+package javaprogramming2.week4.homework;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -37,7 +37,6 @@ public class Student {
     }
 
     boolean matches(String kwd) {
-        // TODO Auto-generated method stub
         if (name.contains(kwd))
             return true;
         if (kwd.length() >= 4 && phone.contains(kwd))
@@ -48,7 +47,6 @@ public class Student {
     }
 
     boolean matches(String[] kwdArr) {
-        // TODO Auto-generated method stub
         for (String kwd : kwdArr) {
             if (kwd.charAt(0) == '-') {
                 if (matches(kwd.substring(1)))

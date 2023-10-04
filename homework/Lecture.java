@@ -1,9 +1,9 @@
-package javaprogramming2.week3.homework;
+package javaprogramming2.week4.homework;
 
 import java.util.Scanner;
 
 public class Lecture {
-
+//2 DD748	시스템소프트웨어	2 수 123 www.fliplearning.com/dd748
     String code;
     String name;
     int year;
@@ -19,11 +19,13 @@ public class Lecture {
         day = scan.next();
         time = scan.next();
     }
-    void print() {
-        System.out.printf("[%s] %s (%d학년) %s %s\n", code, name, year, day, time);
-
+    void printLectureType(){
+        System.out.printf("[일반] ");
     }
-
+    void print() {
+        printLectureType();
+        System.out.printf("[%s] %s (%d학년) %s %s\n", code, name, year, day, time);
+    }
     public boolean matches(String code2) {
         if(code.equals(code2))
             return true;
