@@ -1,45 +1,32 @@
-package javaprogramming2.week5.exam01;
+package javaprogramming2.week4.exam01;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class Book implements Manageable{
-    // 자료구조 생능출판 1001 2003 천인국 공용해 하상호 0 15000
-    String title;
-    String pub;
-    String isbn;
-    int year;
+public class Book {
+    String title, pub;
+    int isbn, year;
     ArrayList<String> authors = new ArrayList<>();
     int price;
-
-    public void read(Scanner scan) {
+    void read(Scanner scan){
         title = scan.next();
         pub = scan.next();
-        isbn = scan.next();
+        isbn = scan.nextInt();
         year = scan.nextInt();
-        String token = null;
-        while (true) {
-            token = scan.next();
-            if (token.contentEquals("0"))
+        String tmp;
+        while (true){
+            tmp = scan.next();
+            if(tmp.contentEquals("0"))
                 break;
-            authors.add(token);
+            authors.add(tmp);
         }
         price = scan.nextInt();
     }
-    // 자료구조 (생능출판/1001/2003년) [15000원] 저자:천인국 공용해 하상호
-    public void print() {
-        System.out.format("%s (%s/%s/%d년) [%d원] 저자:",
+    void print(){
+        System.out.printf("%s %s (%d/%d년) [%d원], 저자: ",
             title, pub, isbn, year, price);
-        for (String a: authors)
-            System.out.print(a + " ");
+        for(String a: authors)
+            System.out.printf("%s", a);
         System.out.println();
-    }
-
-    public boolean matches(String kwd) {
-        if (title.contains(kwd))
-            return true;
-        if (isbn.equals(kwd))
-            return true;
-        return false;
     }
 }

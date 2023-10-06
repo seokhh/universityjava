@@ -9,7 +9,7 @@ public class Bookstore {
     Scanner scan = new Scanner(System.in);
     ArrayList<Book> booklist = new ArrayList<>();
     void run(){
-        readAllBooks("book입력파일1.txt");
+        readAllBooks("book1.txt");
         printAllBooks();
     }
     void readAllBooks(String filename) {

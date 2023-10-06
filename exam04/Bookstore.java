@@ -9,7 +9,7 @@ public class Bookstore {
     Scanner scan = new Scanner(System.in);
     ArrayList<Book> booklist = new ArrayList<>();
     void run(){
-        readAllBooks("c:\\java\\book2.txt");
+        readAllBooks("book2.txt");
         printAllBooks();
         search();
     }
