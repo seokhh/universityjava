@@ -1,79 +1,48 @@
-package javaprogramming2.week3.exam03;
+package javaprogramming2.week6.exam03;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Department {
-    Scanner scan = new Scanner(System.in);
-    ArrayList<Student> studentList = new ArrayList<>();
-    ArrayList<Lecture> lectureList = new ArrayList<>();
+	Scanner scan = new Scanner(System.in);
+	static Manager studentMgr = new Manager();
+	static Manager lectureMgr = new Manager();
+	void run() {
+		lectureMgr.readAll("lecture.txt", new Factory() {
+			@Override
+			public Manageable create() {
+				return new Lecture();		//무명클래스 이게 제일 많이 쓰임
+			}
+		});
+		lectureMgr.printAll();
+		class StudentFac implements Factory{
+			public Manageable create(){
+				return new Student();
+			}
+		}
+		studentMgr.readAll("student.txt", new StudentFac());	//로컬클래스 앞에서 정의해줘야함 중첩클래스도 사용가능
+		studentMgr.printAll();
+		searchMenu();
+	}
+	/*class StudentFac implements Factory{
+		public Manageable create(){
+			return new Student();
+		}
+	}*/
+	void searchMenu() {
+		int num;
+		while (true) {
+			System.out.print("(1)강의검색 (2)학생 (기타) 종료 ");
+			num = scan.nextInt();
+			switch (num){
+				case 1: lectureMgr.search(scan); break;
+				case 2: studentMgr.search(scan); break;
+				default: break;
+			}
+		}
+	}
 
-    void run() {
-        readLectures();
-        readAllstudents();
-        printAllstudents();
-        search();
-    }
-
-    void readLectures() {
-        Lecture lec = null;
-        String code;
-        while (true) {
-            code = scan.next();
-            if (code.contentEquals("end"))
-                break;
-            lec = new Lecture(code);
-            lec.read(scan);
-            lectureList.add(lec);
-        }
-    }
-
-    void readAllstudents() {
-        Student st = null;
-        int id;
-        while (true) {
-            id = scan.nextInt();
-            if (id == 0)
-                break;
-            st = new Student();
-            st.read(scan, id, this);
-            studentList.add(st);
-        }
-    }
-
-    public Lecture findLecture(String code) {
-        for(Lecture lec: lectureList){
-            if(lec.matches(code))
-                return lec;
-        }
-        return null;
-    }
-    void printAllstudents() {
-        for (Student st : studentList) {
-            st.print();
-        }
-    }
-
-    void search() {
-        String line = null;
-        String[] kwdArr;
-        scan.nextLine();
-        while (true) {
-            System.out.print("키워드(통합검색, -면 제외):");
-            line = scan.nextLine();
-            if (line.equals("end"))
-                break;
-            kwdArr = line.trim().split(" ");
-            for (Student st : studentList) {
-                if (st.matches(kwdArr))
-                    st.print();
-            }
-        }
-    }//Arraylist.contains함수 활용
-
-    public static void main(String args[]) {
-        Department my = new Department();
-        my.run();
-    }
+	public static void main(String args[]) {
+		Department my = new Department();
+		my.run();
+	}
 }
