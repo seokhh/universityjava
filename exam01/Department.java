@@ -1,86 +1,44 @@
-package javaprogramming2.week3.exam01;
+package javaprogramming2.week7.exam01;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class Department {
-    Scanner scan = new Scanner(System.in);
-    ArrayList<Student> studentList = new ArrayList<>();
-    ArrayList<Team> teamList = new ArrayList<>();
+	Scanner scan = new Scanner(System.in);
+	static Manager<Student> studentMgr = new Manager<Student>();
+	static Manager2<Lecture> lectureMgr = new Manager2<Lecture>();
+	void run() {
+		lectureMgr.readAll("lecture.txt", new Factory2 <Lecture>() {
+			@Override
+			public Lecture create() {
+				return new Lecture();
+			}
+		});
+		lectureMgr.printAll();
+		studentMgr.readAll("student.txt", new Factory <Student>() {
+			@Override
+			public Student create() {
+				return new Student();
+			}
+		});
+		studentMgr.printAll();
+		searchMenu();
+	}
 
-    void run() {
-        readAll();
-        printAll();
-        readteams();
-        printteams();
-        searchteams();
-        search();
-    }
-    void searchteams() {
+	void searchMenu() {
+		int num;
+		while (true) {
+			System.out.print("(1)강의검색 (2)학생 (기타) 종료 ");
+			num = scan.nextInt();
+			switch (num){
+				case 1: lectureMgr.search(scan); break;
+				case 2: studentMgr.search(scan); break;
+				default: break;
+			}
+		}
+	}
 
-    }
-
-    void printteams() {
-        for (Team t : teamList) {
-            t.print();
-        }
-    }
-    void readAll() {
-        Student st = null;
-        int id;
-        while (true) {
-            id = scan.nextInt();
-            if (id == 0)
-                break;
-            st = new Student();
-            st.read(scan, id);
-            studentList.add(st);
-        }
-    }
-
-    void readteams(){
-        Team t = null;
-        String name;
-        while (true) {
-            name = scan.next();
-            if (name.equals("end"))
-                break;
-            t = new Team(name);
-            t.read(scan, this);
-            teamList.add(t);
-        }
-    }
-
-    void printAll() {
-        for (Student st : studentList) {
-            st.print();
-        }
-    }
-
-    void search() {
-        String line = null;
-        String[] kwdArr;
-        scan.nextLine();
-        while (true) {
-            System.out.print("키워드(통합검색, -면 제외):");
-            line = scan.nextLine();
-            if (line.equals("end"))
-                break;
-            kwdArr = line.trim().split(" ");
-            for (Student st : studentList) {
-                if (st.matches(kwdArr))
-                    st.print();
-            }
-        }
-    }
-
-    public static void main(String args[]) {
-        Department my = new Department();
-        my.run();
-    }
-
-    public Student findStudent(int n) {
-        return studentList.get(n-1);
-    }
+	public static void main(String args[]) {
+		Department my = new Department();
+		my.run();
+	}
 }
