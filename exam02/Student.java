@@ -1,4 +1,6 @@
-package javaprogramming2.week6.exam02;
+package javaprogramming2.week7.exam02;
+
+import static javaprogramming2.week7.exam02.Department.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -22,7 +24,7 @@ public class Student implements Manageable {
 			code = scan.next();
 			if (code.equals("0"))
 				break;
-			lecture = (Lecture) Department.lectureMgr.find(code);
+			lecture = lectureMgr.find(code);
 			if (lecture == null)
 				System.out.println("null: "+code);
 			registeredList.add(lecture);

@@ -1,24 +1,24 @@
-package javaprogramming2.week6.exam02;
+package javaprogramming2.week7.exam02;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Manager{
-    static ArrayList<Manageable> mList = new ArrayList<>();
+public class Manager <T extends Manageable> {
+    ArrayList<T> mList = new ArrayList<>();
 
-    void readAll(String filename, Factory fac) {
+    public void readAll(String filename, Factory<T> fac) {
         Scanner filein = openFile(filename);
-        Manageable m = null;
+        T m = null;
         while (filein.hasNext()) {
             m = fac.create();
             m.read(filein);
-            mList.add(m);
+            mList.add((T) m);
         }
         filein.close();
     }
-    Scanner openFile(String filename) {
+    public Scanner openFile(String filename) {
         Scanner filein = null;
         try {
             filein = new Scanner(new File(filename));
@@ -30,26 +30,26 @@ public class Manager{
         return filein;
     }
 
-    void printAll() {
-        for (Manageable m: mList)
+    public void printAll() {
+        for (T m: mList)
             m.print();
     }
 
-    void search(Scanner scan) {
+    public void search(Scanner scan) {
         String kwd = null;
         while (true) {
             System.out.print(">> ");
             kwd = scan.next();
             if (kwd.equals("end"))
                 break;
-            for (Manageable m : mList) {
+            for (T m : mList) {
                 if (m.matches(kwd))
                     m.print();
             }
         }
     }
-    static Manageable find(String kwd){
-        for (Manageable m: mList) {
+    public T find(String kwd){
+        for (T m: mList) {
             if (m.matches(kwd))
                 return m;
         }

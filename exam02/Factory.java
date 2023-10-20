@@ -1,5 +1,5 @@
-package javaprogramming2.week6.exam02;
+package javaprogramming2.week7.exam02;
 
-interface Factory {
-    public Manageable create();
+public interface Factory <T extends Manageable> {
+    public T create();
 }
