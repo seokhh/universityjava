@@ -1,44 +1,36 @@
-package javaprogramming2.week6.exam03;
+package javaprogramming2.week7.exam03;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Department {
 	Scanner scan = new Scanner(System.in);
-	static Manager studentMgr = new Manager();
-	static Manager lectureMgr = new Manager();
+	static Manager<Student> studentMgr = new Manager<Student>();
+	static Manager<Lecture> lectureMgr = new Manager<Lecture>(); //인스턴시에이션
 	void run() {
-		lectureMgr.readAll("lecture.txt", new Factory() {
+		lectureMgr.readAll("lecture.txt", new Factory<Lecture>() {
 			@Override
-			public Manageable create() {
-				return new Lecture();		//무명클래스 이게 제일 많이 쓰임
+			public Lecture create() {
+				return new Lecture();
 			}
 		});
 		lectureMgr.printAll();
-		class StudentFac implements Factory{
-			public Manageable create(){
-				return new Student();
+		Collections.sort(lectureMgr.mList, new Comparator<Lecture>() {
+			@Override
+			public int compare(Lecture lec1, Lecture lec2) {
+				int result = lec1.code.compareTo(lec2.code);
+				if (result != 0) return result;
+				return (lec1.name.compareTo(lec2.name));
 			}
-		}
-		studentMgr.readAll("student.txt", new StudentFac());	//로컬클래스 앞에서 정의해줘야함 중첩클래스도 사용가능
+		});
+		System.out.println("===정렬된 강의리스트===");
+		lectureMgr.printAll();
+		studentMgr.readAll("student.txt", () -> new Student()); //람다식 구현 Student::new 도 가능함 static 메소드를 던지는 방식
 		studentMgr.printAll();
-		searchMenu();
-	}
-	/*class StudentFac implements Factory{
-		public Manageable create(){
-			return new Student();
-		}
-	}*/
-	void searchMenu() {
-		int num;
-		while (true) {
-			System.out.print("(1)강의검색 (2)학생 (기타) 종료 ");
-			num = scan.nextInt();
-			switch (num){
-				case 1: lectureMgr.search(scan); break;
-				case 2: studentMgr.search(scan); break;
-				default: break;
-			}
-		}
+		Collections.sort(studentMgr.mList);
+		System.out.println("===정렬된 학생리스트===");
+		studentMgr.printAll();
 	}
 
 	public static void main(String args[]) {

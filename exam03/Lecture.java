@@ -1,8 +1,8 @@
-package javaprogramming2.week6.exam03;
+package javaprogramming2.week7.exam03;
 
 import java.util.Scanner;
 
-public class Lecture implements Manageable {
+public class Lecture implements Manageable{
 	String code;
 	String name;
 	int year;
@@ -30,4 +30,5 @@ public class Lecture implements Manageable {
 			return true;
 		return false;
 	}
+
 }
