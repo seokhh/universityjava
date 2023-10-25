@@ -1,10 +1,11 @@
 package javaprogramming2.middleExam;
 
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class MiddleExam {
+    Scanner scan = new Scanner(System.in);
     static Manager ItemMgr = new Manager();
-    Manager OrderMgr = new Manager();
+    static Manager OrderMgr = new Manager();
     void run(){
         ItemMgr.readAll("mid1.txt", new Factory() {
             @Override
@@ -13,8 +14,26 @@ public class MiddleExam {
             }
         });
         ItemMgr.printAll();
+        OrderMgr.readAll("mid2.txt", Order::new);
+        OrderMgr.printAll();
+        searchmenu();
     }
-    public static void main(String[] args){
+
+    void searchmenu() {
+        int num;
+        while (true) {
+            System.out.print("(1)고객번호 검색 (2)제품정보 검색 (기타) 종료 ");
+
+            num = scan.nextInt();
+            switch (num){
+                case 1: ItemMgr.search(scan); break;
+                case 2: OrderMgr.search(scan); break;
+                default: break;
+            }
+        }
+    }
+
+    public static void main(String args[]){
         MiddleExam middleExam = new MiddleExam();
         middleExam.run();
     }

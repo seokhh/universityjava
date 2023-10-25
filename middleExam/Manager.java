@@ -5,8 +5,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Manager {
+public class Manager{
     static ArrayList<Manageable> mList = new ArrayList<>();
+
     void readAll(String filename, Factory fac) {
         Scanner filein = openFile(filename);
         Manageable m = null;
@@ -28,6 +29,7 @@ public class Manager {
         }
         return filein;
     }
+
     void printAll() {
         for (Manageable m: mList)
             m.print();

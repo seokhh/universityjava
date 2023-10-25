@@ -3,7 +3,6 @@ package javaprogramming2.middleExam;
 import java.util.Scanner;
 
 public class Item implements Manageable{
-    Scanner scan = new Scanner(System.in);
     String name;
     int number;
     String itemNum;
@@ -17,7 +16,7 @@ public class Item implements Manageable{
 
 
     @Override
-    public void read(Scanner scanner) {
+    public void read(Scanner scan) {
         name = scan.next();
         number = scan.nextInt();
         itemNum = scan.next();
@@ -38,7 +37,17 @@ public class Item implements Manageable{
 
     @Override
     public boolean matches(String kwd) {
-
+        if (kwd.contentEquals(name))
+            return true;
         return false;
+    }
+
+    int getPrice (String n) {
+        if (n.equals(company)) {
+            return price;
+        } else {
+            // Handle the case when 'n' does not match the 'company' field
+            return 0; // Or any other default value or error handling logic
+        }
     }
 }
