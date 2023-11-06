@@ -1,20 +1,21 @@
-package javaprogramming2.week6.exam04.mgr;
+package javaprogramming2.week9.exam04.mgr;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
-//패키지 분류 해줌으로써 부가적인 클래스와 인터페이스를 모아줌
-public class Manager{
-    static ArrayList<Manageable> mList = new ArrayList<>();
 
-    public void readAll(String filename, Factory fac) {
+public class Manager<T extends Manageable> {
+    public ArrayList<T> mList = new ArrayList<>();
+
+    public void readAll(String filename, Factory<T> fac) {
         Scanner filein = openFile(filename);
-        Manageable m = null;
+        T m = null;
         while (filein.hasNext()) {
             m = fac.create();
             m.read(filein);
-            mList.add(m);
+            mList.add((T) m);
         }
         filein.close();
     }
@@ -31,7 +32,7 @@ public class Manager{
     }
 
     public void printAll() {
-        for (Manageable m: mList)
+        for (T m: mList)
             m.print();
     }
 
@@ -42,17 +43,21 @@ public class Manager{
             kwd = scan.next();
             if (kwd.equals("end"))
                 break;
-            for (Manageable m : mList) {
+            for (T m : mList) {
                 if (m.matches(kwd))
                     m.print();
             }
         }
     }
-    public static Manageable find(String kwd){
-        for (Manageable m: mList) {
+    public T find(String kwd){
+        for (T m: mList) {
             if (m.matches(kwd))
                 return m;
         }
         return null;
+    }
+
+    public void sortAndPrint(Comparator<T> itemComparator) {
+        //리스트를 저장하고 소트시키는걸 구현해줘야함
     }
 }
